@@ -7,7 +7,7 @@ namespace AiUoVsix
 {
     internal sealed class GenerateEntityCommand
     {
-        public const int CommandId = 0x0100;
+        public const int CommandId = 0x010011;
         public static readonly Guid CommandSet = new Guid("c35419c1-8b14-4889-9e58-71c9c6a7c143");
         private readonly AsyncPackage package;
 

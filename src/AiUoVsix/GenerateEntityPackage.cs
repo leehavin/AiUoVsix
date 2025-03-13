@@ -17,7 +17,9 @@ namespace AiUoVsix
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await GenerateEntityCommand.InitializeAsync(this);
-            await TestCommand.InitializeAsync(this);
+            await DockerPublishCommand.InitializeAsync(this);
+            await SqlSugarGenCommand.InitializeAsync(this);
+            await NugetPublishCommand.InitializeAsync(this);
         }
     }
 }

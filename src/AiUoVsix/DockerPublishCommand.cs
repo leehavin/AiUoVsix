@@ -10,7 +10,7 @@ namespace AiUoVsix
 {
     public class DockerPublishCommand
     {
-        public const int CommandId = 4150;
+        public const int CommandId = 0x0103;
         public static readonly Guid CommandSet = new Guid("f8cee976-c0f5-46c8-a8e6-da9c954e5f58");
         private readonly AsyncPackage package;
 

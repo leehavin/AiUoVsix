@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <Extern href="stdidcmd.h"/>
-  <Extern href="vsshlids.h"/>
-  <Include href="KnownImageIds.vsct"/>
+	<Extern href="stdidcmd.h"/>
+	<Extern href="vsshlids.h"/>
+	<Include href="KnownImageIds.vsct"/>
 
-  <Commands package="guidGenerateEntityPackage">
-    <Groups>
-      <Group guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
-      </Group>
-      <Group guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" priority="0x0100">
-        <Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu"/>
-      </Group>
-    </Groups>
+	<Commands package="guidGenerateEntityPackage">
+		<Groups>
+			<Group guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+			</Group>
+			<Group guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" priority="0x0100">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu"/>
+			</Group>
+		</Groups>
 
-    <Menus>
-      <Menu guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu" priority="0x0100" type="Menu">
-        <Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/>
-        <CommandFlag>IconAndText</CommandFlag>
-        <Strings>
-          <ButtonText>AiUo</ButtonText>
-        </Strings>
-      </Menu>
-    </Menus>
+		<Menus>
+			<Menu guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu" priority="0x0100" type="Menu">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/>
+				<CommandFlag>IconAndText</CommandFlag>
+				<Strings>
+					<ButtonText>AiUo Tools</ButtonText>
+				</Strings>
+			</Menu>
+		</Menus>
 
-    <Buttons>
-      <Button guid="guidGenerateEntityPackageCmdSet" id="cmdidGenerateEntityCommand" priority="0x0100" type="Button">
-        <Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="ClassFile" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
-        <Strings>
-          <ButtonText>生成实体</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidGenerateEntityPackageCmdSet" id="cmdidTestCommand" priority="0x0101" type="Button">
-        <Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="TestApplication" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
-        <Strings>
-          <ButtonText>测试</ButtonText>
-        </Strings>
-      </Button>
-    </Buttons>
-  </Commands>
+		<Buttons>
+			<Button guid="guidSqlSugarGenCmdSet" id="cmdidSqlSugarGenCommand" priority="0x0101" type="Button">
+				<Parent guid="guidSqlSugarGenCmdSet" id="AiUoSubMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="SqlSugarGenApp" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>SqlSugar代码生成</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidNugetPublishCmdSet" id="cmdidNugetPublishCommand" priority="0x0102" type="Button">
+				<Parent guid="guidNugetPublishCmdSet" id="AiUoSubMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="NugetPublishApp" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>打包发布Nuget</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidDockerPublishCmdSet" id="cmdidDockerPublishCommand" priority="0x0103" type="Button">
+				<Parent guid="guidDockerPublishCmdSet" id="AiUoSubMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="DockerPublishApp" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>项目发布到Docker</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+	</Commands>
 
-  <Symbols>
-    <GuidSymbol name="guidGenerateEntityPackage" value="{47c9875f-4d82-4357-ad2d-0c7d67a47b93}" />
-    <GuidSymbol name="guidGenerateEntityPackageCmdSet" value="{c35419c1-8b14-4889-9e58-71c9c6a7c143}">
-      <IDSymbol name="AiUoMenuGroup" value="0x1020" />
-      <IDSymbol name="AiUoSubMenu" value="0x1021" />
-      <IDSymbol name="AiUoSubMenuGroup" value="0x1022" />
-      <IDSymbol name="cmdidGenerateEntityCommand" value="0x0100" />
-      <IDSymbol name="cmdidTestCommand" value="0x0101" />
-    </GuidSymbol>
-  </Symbols>
+	<Symbols>
+		<GuidSymbol name="guidGenerateEntityPackage" value="{47c9875f-4d82-4357-ad2d-0c7d67a47b93}" />
+		<GuidSymbol name="guidGenerateEntityPackageCmdSet" value="{c35419c1-8b14-4889-9e58-71c9c6a7c143}">
+			<IDSymbol name="AiUoMenuGroup" value="0x1020" />
+			<IDSymbol name="AiUoSubMenu" value="0x1021" />
+			<IDSymbol name="AiUoSubMenuGroup" value="0x1022" />
+			<IDSymbol name="cmdidSqlSugarGenCommand" value="0x0101" />
+			<IDSymbol name="cmdidNugetPublishCommand" value="0x0102" />
+			<IDSymbol name="cmdidDockerPublishCommand" value="0x0103" />
+		</GuidSymbol>
+	</Symbols>
 </CommandTable>
