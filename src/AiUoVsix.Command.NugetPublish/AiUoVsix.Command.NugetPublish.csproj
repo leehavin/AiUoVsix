@@ -46,14 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandRunner.cs" />
+    <Compile Include="Enums\NugetMode.cs" />
+    <Compile Include="Enums\ProjectType.cs" />
+    <Compile Include="Enums\VersionIncrease.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\NugetSourceItem.cs" />
+    <Compile Include="Models\PublishConfig.cs" />
+    <Compile Include="Models\VsixItem.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Models\ProjectInfo.cs" />
+    <Compile Include="Models\ProjectVersion.cs" />
+    <Compile Include="ProjectInfoParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\PublishType.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

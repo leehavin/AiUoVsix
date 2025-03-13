@@ -5,7 +5,7 @@ namespace AiUoVsix.Common
 {
     public class VsixConfigFile
     {
-        public static string FILE_NAME = "tinyfx.vsix.json";
+        public static string FILE_NAME = "aiuo.vsix.json";
 
         private EnvDTEWraper _dte;
 

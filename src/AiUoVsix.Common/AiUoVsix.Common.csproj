@@ -65,6 +65,7 @@
     <Compile Include="ReflectionUtil.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="VsixConfigFile.cs" />
+    <Compile Include="XmlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
