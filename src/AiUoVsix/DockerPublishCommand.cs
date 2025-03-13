@@ -1,4 +1,6 @@
-﻿using EnvDTE;
+﻿using AiUoVsix.Command.DockerPublish;
+using AiUoVsix.Common;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;

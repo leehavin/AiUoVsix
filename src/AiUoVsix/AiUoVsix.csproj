@@ -88,6 +88,14 @@
     <Compile Include="TestCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AiUoVsix.Command.DockerPublish\AiUoVsix.Command.DockerPublish.csproj">
+      <Project>{baa7eb4b-5af3-4537-8664-997f44a9986e}</Project>
+      <Name>AiUoVsix.Command.DockerPublish</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AiUoVsix.Command.NugetPublish\AiUoVsix.Command.NugetPublish.csproj">
+      <Project>{e144957c-8930-445a-aacc-15e9af61d19f}</Project>
+      <Name>AiUoVsix.Command.NugetPublish</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AiUoVsix.Command.SqlSugarGen\AiUoVsix.Command.SqlSugarGen.csproj">
       <Project>{eeac623a-1079-4eb8-a9cb-265096576c96}</Project>
       <Name>AiUoVsix.Command.SqlSugarGen</Name>

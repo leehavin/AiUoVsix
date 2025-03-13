@@ -1,6 +1,6 @@
-﻿namespace AiUoVsix.Command.DockerPublish
+﻿namespace AiUoVsix.Command.NugetPublish
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。

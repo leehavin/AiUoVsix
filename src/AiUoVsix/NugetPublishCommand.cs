@@ -1,10 +1,9 @@
-﻿using EnvDTE;
+﻿using AiUoVsix.Command.NugetPublish;
+using AiUoVsix.Common;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AiUoVsix
