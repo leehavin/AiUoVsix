@@ -1,4 +1,4 @@
-﻿using AiUoVsix.Command.SqlSugarGen;
+using AiUoVsix.Command.SqlSugarGen;
 using AiUoVsix.Common;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -12,29 +12,27 @@ namespace AiUoVsix
     public class SqlSugarGenCommand
     {
         public const int CommandId = 0x0101;
-        public static readonly Guid CommandSet = new Guid("f8cee976-c0f5-46c8-a8e6-da9c954e5f58");
+        public static readonly Guid CommandSet = new Guid("c35419c1-8b14-4889-9e58-71c9c6a7c143");
         private readonly AsyncPackage package;
 
         private SqlSugarGenCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            MenuCommand command = new MenuCommand(new EventHandler(this.Execute), new CommandID(SqlSugarGenCommand.CommandSet, 4132));
-            ((MenuCommandService)commandService).AddCommand(command);
+            var menuCommandID = new CommandID(CommandSet, CommandId);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
+            commandService.AddCommand(menuItem);
         }
 
         public static SqlSugarGenCommand Instance { get; private set; }
 
-        private IAsyncServiceProvider ServiceProvider => (IAsyncServiceProvider)this.package;
+        private IAsyncServiceProvider ServiceProvider => this.package;
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-            object obj = await package.GetServiceAsync(typeof(IMenuCommandService));
-            OleMenuCommandService commandService = obj as OleMenuCommandService;
-            obj = (object)null;
-            SqlSugarGenCommand.Instance = new SqlSugarGenCommand(package, commandService);
-            commandService = (OleMenuCommandService)null;
+            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            Instance = new SqlSugarGenCommand(package, commandService);
         }
 
         private void Execute(object sender, EventArgs e)
@@ -42,11 +40,14 @@ namespace AiUoVsix
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread(nameof(Execute));
-                int num = (int)new MainForm(new EnvDTEWraper(this.ServiceProvider?.GetServiceAsync(typeof(DTE))?.Result as DTE)).ShowDialog();
+                var dte = ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
+                var form = new MainForm(new EnvDTEWraper(dte));
+                form.ShowDialog();
             }
             catch (Exception ex)
             {
-                VsShellUtilities.ShowMessageBox((IServiceProvider)this.package, ex.Message, "出现错误", (OLEMSGICON)1, (OLEMSGBUTTON)0, (OLEMSGDEFBUTTON)0);
+                VsShellUtilities.ShowMessageBox(this.package, ex.Message, "出现错误", OLEMSGICON.OLEMSGICON_CRITICAL,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
         }
     }

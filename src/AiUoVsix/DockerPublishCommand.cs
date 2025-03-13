@@ -1,7 +1,8 @@
-﻿using AiUoVsix.Command.DockerPublish;
+using AiUoVsix.Command.DockerPublish;
 using AiUoVsix.Common;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
 using System.Threading.Tasks;
@@ -11,35 +12,43 @@ namespace AiUoVsix
     public class DockerPublishCommand
     {
         public const int CommandId = 0x0103;
-        public static readonly Guid CommandSet = new Guid("f8cee976-c0f5-46c8-a8e6-da9c954e5f58");
+        public static readonly Guid CommandSet = new Guid("c35419c1-8b14-4889-9e58-71c9c6a7c143");
         private readonly AsyncPackage package;
 
         private DockerPublishCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            MenuCommand command = new MenuCommand(new EventHandler(this.Execute), new CommandID(DockerPublishCommand.CommandSet, 4150));
-            ((MenuCommandService)commandService).AddCommand(command);
+            var menuCommandID = new CommandID(CommandSet, CommandId);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
+            commandService.AddCommand(menuItem);
         }
 
         public static DockerPublishCommand Instance { get; private set; }
 
-        private IAsyncServiceProvider ServiceProvider => (IAsyncServiceProvider)this.package;
+        private IAsyncServiceProvider ServiceProvider => this.package;
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-            object obj = await package.GetServiceAsync(typeof(IMenuCommandService));
-            OleMenuCommandService commandService = obj as OleMenuCommandService;
-            obj = (object)null;
-            DockerPublishCommand.Instance = new DockerPublishCommand(package, commandService);
-            commandService = (OleMenuCommandService)null;
+            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            Instance = new DockerPublishCommand(package, commandService);
         }
 
         private void Execute(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread(nameof(Execute));
-            int num = (int)new MainForm(new EnvDTEWraper(this.ServiceProvider?.GetServiceAsync(typeof(DTE))?.Result as DTE)).ShowDialog();
+            try
+            {
+                ThreadHelper.ThrowIfNotOnUIThread(nameof(Execute));
+                var dte = ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
+                var form = new MainForm(new EnvDTEWraper(dte));
+                form.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                VsShellUtilities.ShowMessageBox(this.package, ex.Message, "出现错误", OLEMSGICON.OLEMSGICON_CRITICAL,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            }
         }
     }
 }

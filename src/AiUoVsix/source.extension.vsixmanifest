@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="AiUoVsix.8E2F55F5-E714-4F63-9A89-6C9E1A6F7BE1" Version="1.0" Language="zh-CN" Publisher="AiUo" />
+        <Identity Id="AiUoVsix.8E2F55F5-E714-4F63-9A89-6C9E1A6F7BE1" Version="1.0.0.1" Publisher="AiUo" Language="zh-Hans" />
         <DisplayName>AiUoVsix</DisplayName>
-        <Description xml:space="preserve">AiUo开发辅助工具
-        aiuo, docker publish, nuget publish , sqlsugar genion&gt;
+        <Description xml:space="preserve">AiUo开发辅助工具  aiuo, docker publish, nuget publish , sqlsugar genion</Description>
+        <Icon>aiuo-icon-256.ico</Icon>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
@@ -12,7 +12,7 @@
         </InstallationTarget>
     </Installation>
     <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5]" d:Source="Manual" />
     </Dependencies>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />

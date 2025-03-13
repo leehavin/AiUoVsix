@@ -16,8 +16,7 @@
 
 		<Menus>
 			<Menu guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu" priority="0x0100" type="Menu">
-				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/>
-				<CommandFlag>IconAndText</CommandFlag>
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/> 
 				<Strings>
 					<ButtonText>AiUo Tools</ButtonText>
 				</Strings>
@@ -25,26 +24,23 @@
 		</Menus>
 
 		<Buttons>
-			<Button guid="guidSqlSugarGenCmdSet" id="cmdidSqlSugarGenCommand" priority="0x0101" type="Button">
-				<Parent guid="guidSqlSugarGenCmdSet" id="AiUoSubMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="SqlSugarGenApp" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
+			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidSqlSugarGenCommand" priority="0x0101" type="Button">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
+				 
 				<Strings>
 					<ButtonText>SqlSugar代码生成</ButtonText>
 				</Strings>
 			</Button>
-			<Button guid="guidNugetPublishCmdSet" id="cmdidNugetPublishCommand" priority="0x0102" type="Button">
-				<Parent guid="guidNugetPublishCmdSet" id="AiUoSubMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="NugetPublishApp" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
+			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidNugetPublishCommand" priority="0x0102" type="Button">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
+				 
 				<Strings>
 					<ButtonText>打包发布Nuget</ButtonText>
 				</Strings>
 			</Button>
-			<Button guid="guidDockerPublishCmdSet" id="cmdidDockerPublishCommand" priority="0x0103" type="Button">
-				<Parent guid="guidDockerPublishCmdSet" id="AiUoSubMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="DockerPublishApp" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
+			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidDockerPublishCommand" priority="0x0103" type="Button">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
+				 
 				<Strings>
 					<ButtonText>项目发布到Docker</ButtonText>
 				</Strings>

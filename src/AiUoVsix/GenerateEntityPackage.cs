@@ -16,7 +16,6 @@ namespace AiUoVsix
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await GenerateEntityCommand.InitializeAsync(this);
             await DockerPublishCommand.InitializeAsync(this);
             await SqlSugarGenCommand.InitializeAsync(this);
             await NugetPublishCommand.InitializeAsync(this);

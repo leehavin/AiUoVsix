@@ -74,13 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DockerPublishCommand.cs" />
-    <Compile Include="GenerateEntityCommand.cs" />
-    <Compile Include="GenerateEntityForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenerateEntityForm.Designer.cs">
-      <DependentUpon>GenerateEntityForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="GenerateEntityPackage.cs" />
     <Compile Include="NugetPublishCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
