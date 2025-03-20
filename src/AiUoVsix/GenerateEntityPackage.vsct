@@ -16,7 +16,7 @@
 
 		<Menus>
 			<Menu guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenu" priority="0x0100" type="Menu">
-				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/> 
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoMenuGroup"/>
 				<Strings>
 					<ButtonText>AiUo Tools</ButtonText>
 				</Strings>
@@ -26,21 +26,21 @@
 		<Buttons>
 			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidSqlSugarGenCommand" priority="0x0101" type="Button">
 				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
-				 
+
 				<Strings>
 					<ButtonText>SqlSugar代码生成</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidNugetPublishCommand" priority="0x0102" type="Button">
 				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
-				 
+
 				<Strings>
 					<ButtonText>打包发布Nuget</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidDockerPublishCommand" priority="0x0103" type="Button">
 				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
-				 
+
 				<Strings>
 					<ButtonText>项目发布到Docker</ButtonText>
 				</Strings>
