@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddConnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddConnForm.Designer.cs">
+      <DependentUpon>AddConnForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ConnectionElement.cs" />
     <Compile Include="Common\DbObjectType.cs" />
     <Compile Include="Common\GenOptions.cs" />
@@ -71,6 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\SqlSugarPartialEO.cs" />
     <Compile Include="Templates\SqlSugarPartialEOBase.cs" />
+    <EmbeddedResource Include="AddConnForm.resx">
+      <DependentUpon>AddConnForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\ListViewEx.resx">
       <DependentUpon>ListViewEx.cs</DependentUpon>
     </EmbeddedResource>

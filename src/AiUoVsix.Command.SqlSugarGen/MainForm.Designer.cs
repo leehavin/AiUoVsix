@@ -32,18 +32,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbxDbs = new System.Windows.Forms.ComboBox();
+            this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.cbxPartial = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnOpenOutput = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.txtNamespace = new System.Windows.Forms.TextBox();
+            this.cbxSubPath = new System.Windows.Forms.CheckBox();
+            this.cbxConfigId = new System.Windows.Forms.CheckBox();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.btnGen = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -52,7 +52,9 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lvlMain = new System.Windows.Forms.ListView();
             this.lblResult = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -82,20 +84,20 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Partial类：";
             // 
-            // comboBox1
+            // cbxDbs
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(127, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(308, 23);
-            this.comboBox1.TabIndex = 3;
+            this.cbxDbs.FormattingEnabled = true;
+            this.cbxDbs.Location = new System.Drawing.Point(127, 21);
+            this.cbxDbs.Name = "cbxDbs";
+            this.cbxDbs.Size = new System.Drawing.Size(308, 23);
+            this.cbxDbs.TabIndex = 3;
             // 
-            // textBox1
+            // txtOutputPath
             // 
-            this.textBox1.Location = new System.Drawing.Point(127, 58);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(308, 25);
-            this.textBox1.TabIndex = 4;
+            this.txtOutputPath.Location = new System.Drawing.Point(127, 58);
+            this.txtOutputPath.Name = "txtOutputPath";
+            this.txtOutputPath.Size = new System.Drawing.Size(308, 25);
+            this.txtOutputPath.TabIndex = 4;
             // 
             // cbxPartial
             // 
@@ -110,41 +112,45 @@
             this.cbxPartial.Size = new System.Drawing.Size(308, 23);
             this.cbxPartial.TabIndex = 5;
             // 
-            // button1
+            // btnAdd
             // 
-            this.button1.Location = new System.Drawing.Point(462, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAdd.Location = new System.Drawing.Point(450, 16);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(87, 32);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "添加";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // button2
+            // btnOpenOutput
             // 
-            this.button2.Location = new System.Drawing.Point(462, 59);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnOpenOutput.Location = new System.Drawing.Point(462, 59);
+            this.btnOpenOutput.Name = "btnOpenOutput";
+            this.btnOpenOutput.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenOutput.TabIndex = 7;
+            this.btnOpenOutput.Text = "浏览";
+            this.btnOpenOutput.UseVisualStyleBackColor = true;
+            this.btnOpenOutput.Click += new System.EventHandler(this.btnOpenOutput_Click);
             // 
-            // button3
+            // btnEdit
             // 
-            this.button3.Location = new System.Drawing.Point(555, 21);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnEdit.Location = new System.Drawing.Point(547, 16);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(87, 32);
+            this.btnEdit.TabIndex = 8;
+            this.btnEdit.Text = "修改";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // button4
+            // btnDelete
             // 
-            this.button4.Location = new System.Drawing.Point(645, 21);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnDelete.Location = new System.Drawing.Point(644, 16);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(87, 32);
+            this.btnDelete.TabIndex = 9;
+            this.btnDelete.Text = "删除";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // label4
             // 
@@ -155,41 +161,42 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "命名空间";
             // 
-            // textBox2
+            // txtNamespace
             // 
-            this.textBox2.Location = new System.Drawing.Point(645, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(272, 25);
-            this.textBox2.TabIndex = 11;
+            this.txtNamespace.Location = new System.Drawing.Point(645, 58);
+            this.txtNamespace.Name = "txtNamespace";
+            this.txtNamespace.Size = new System.Drawing.Size(272, 25);
+            this.txtNamespace.TabIndex = 11;
             // 
-            // checkBox1
+            // cbxSubPath
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(462, 102);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 19);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "使用子目录";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbxSubPath.AutoSize = true;
+            this.cbxSubPath.Location = new System.Drawing.Point(462, 102);
+            this.cbxSubPath.Name = "cbxSubPath";
+            this.cbxSubPath.Size = new System.Drawing.Size(104, 19);
+            this.cbxSubPath.TabIndex = 12;
+            this.cbxSubPath.Text = "使用子目录";
+            this.cbxSubPath.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // cbxConfigId
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(590, 102);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(163, 19);
-            this.checkBox2.TabIndex = 13;
-            this.checkBox2.Text = "使用SugarConfigId";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cbxConfigId.AutoSize = true;
+            this.cbxConfigId.Location = new System.Drawing.Point(590, 102);
+            this.cbxConfigId.Name = "cbxConfigId";
+            this.cbxConfigId.Size = new System.Drawing.Size(163, 19);
+            this.cbxConfigId.TabIndex = 13;
+            this.cbxConfigId.Text = "使用SugarConfigId";
+            this.cbxConfigId.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnSaveConfig
             // 
-            this.button5.Location = new System.Drawing.Point(811, 97);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(128, 38);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "保存配置";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Location = new System.Drawing.Point(811, 97);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(128, 38);
+            this.btnSaveConfig.TabIndex = 14;
+            this.btnSaveConfig.Text = "保存配置";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // btnGen
             // 
@@ -257,6 +264,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lvlMain);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 185);
             this.groupBox1.Name = "groupBox1";
@@ -264,10 +272,20 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             // 
+            // lvlMain
+            // 
+            this.lvlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvlMain.HideSelection = false;
+            this.lvlMain.Location = new System.Drawing.Point(3, 21);
+            this.lvlMain.Name = "lvlMain";
+            this.lvlMain.Size = new System.Drawing.Size(945, 460);
+            this.lvlMain.TabIndex = 0;
+            this.lvlMain.UseCompatibleStateImageBehavior = false;
+            // 
             // lblResult
             // 
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(891, 25);
+            this.lblResult.Location = new System.Drawing.Point(806, 24);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(37, 15);
             this.lblResult.TabIndex = 23;
@@ -287,18 +305,18 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnGen);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.btnSaveConfig);
+            this.Controls.Add(this.cbxConfigId);
+            this.Controls.Add(this.cbxSubPath);
+            this.Controls.Add(this.txtNamespace);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnOpenOutput);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.cbxPartial);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.txtOutputPath);
+            this.Controls.Add(this.cbxDbs);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -306,6 +324,7 @@
             this.Name = "MainForm";
             this.Text = "实体生成器";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,18 +335,18 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox cbxDbs;
+        private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.ComboBox cbxPartial;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnOpenOutput;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox txtNamespace;
+        private System.Windows.Forms.CheckBox cbxSubPath;
+        private System.Windows.Forms.CheckBox cbxConfigId;
+        private System.Windows.Forms.Button btnSaveConfig;
         private System.Windows.Forms.Button btnGen;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.CheckBox checkBox3;
@@ -337,6 +356,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblResult;
+        private System.Windows.Forms.ListView lvlMain;
     }
 }
 

@@ -64,6 +64,10 @@
   <ItemGroup>
     <Compile Include="CliResult.cs" />
     <Compile Include="CliStatus.cs" />
+    <Compile Include="EnumInfo.cs" />
+    <Compile Include="EnumItem.cs" />
+    <Compile Include="EnumMapAttribute.cs" />
+    <Compile Include="EnumUtil.cs" />
     <Compile Include="EnvDTEWraper.cs" />
     <Compile Include="EnvProjectWraper.cs" />
     <Compile Include="IOUtil.cs" />
