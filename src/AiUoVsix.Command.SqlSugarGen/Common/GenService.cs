@@ -73,7 +73,7 @@ namespace AiUoVsix.Command.SqlSugarGen.Common
             }
         }
 
-        private string GetEoClassName(string name) => name.PascalCase() + "PO";
+        private string GetEoClassName(string name) => name.PascalCase() + "Entity";
 
         private SqlSugarClient GetDatabase()
         {

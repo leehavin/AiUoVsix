@@ -5,8 +5,6 @@ using System.Windows.Forms;
 
 namespace AiUoVsix.Command.SqlSugarGen.Common
 {
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ListView))]
     public class ListViewEx : ListView
     {
         private Color[] _colors = new Color[3] { Color.Black, Color.Red, Color.Blue };
@@ -99,7 +97,7 @@ namespace AiUoVsix.Command.SqlSugarGen.Common
 
         private void InitializeComponent()
         {
-            ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(ListViewEx));
+            //ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(ListViewEx));
             //images = new ImageList();
             //images.ImageStream = (ImageListStreamer)componentResourceManager.GetObject("images.ImageStream");
             //images.TransparentColor = Color.Transparent;
