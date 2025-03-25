@@ -63,6 +63,7 @@
     <Compile Include="Common\GenUtil.cs" />
     <Compile Include="Common\ListViewEx.cs">
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Common\ListViewObjectItem.cs" />
     <Compile Include="Common\PartialMode.cs" />
@@ -82,6 +83,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ListViewEx.resx">
       <DependentUpon>ListViewEx.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
