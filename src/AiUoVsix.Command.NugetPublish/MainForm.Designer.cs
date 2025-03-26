@@ -392,7 +392,7 @@
             // 
             // txtVsixPath
             // 
-            this.txtVsixPath.Location = new System.Drawing.Point(201, 112);
+            this.txtVsixPath.Location = new System.Drawing.Point(201, 110);
             this.txtVsixPath.Name = "txtVsixPath";
             this.txtVsixPath.Size = new System.Drawing.Size(509, 25);
             this.txtVsixPath.TabIndex = 20;
@@ -408,80 +408,80 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(726, 209);
+            this.button10.Location = new System.Drawing.Point(719, 209);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.Size = new System.Drawing.Size(84, 30);
             this.button10.TabIndex = 18;
             this.button10.Text = "浏览";
             this.button10.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(730, 158);
+            this.button9.Location = new System.Drawing.Point(719, 158);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.Size = new System.Drawing.Size(84, 30);
             this.button9.TabIndex = 17;
             this.button9.Text = "浏览";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(729, 115);
+            this.button8.Location = new System.Drawing.Point(719, 107);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.Size = new System.Drawing.Size(84, 30);
             this.button8.TabIndex = 16;
             this.button8.Text = "浏览";
             this.button8.UseVisualStyleBackColor = true;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(201, 367);
+            this.textBox8.Location = new System.Drawing.Point(201, 365);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 25);
+            this.textBox8.Size = new System.Drawing.Size(509, 25);
             this.textBox8.TabIndex = 15;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(201, 316);
+            this.textBox7.Location = new System.Drawing.Point(201, 314);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 25);
+            this.textBox7.Size = new System.Drawing.Size(510, 25);
             this.textBox7.TabIndex = 14;
             // 
             // txtVsixToken
             // 
-            this.txtVsixToken.Location = new System.Drawing.Point(201, 265);
+            this.txtVsixToken.Location = new System.Drawing.Point(201, 263);
             this.txtVsixToken.Name = "txtVsixToken";
-            this.txtVsixToken.Size = new System.Drawing.Size(100, 25);
+            this.txtVsixToken.Size = new System.Drawing.Size(510, 25);
             this.txtVsixToken.TabIndex = 13;
             // 
             // txtVsixConfig
             // 
-            this.txtVsixConfig.Location = new System.Drawing.Point(201, 214);
+            this.txtVsixConfig.Location = new System.Drawing.Point(201, 212);
             this.txtVsixConfig.Name = "txtVsixConfig";
-            this.txtVsixConfig.Size = new System.Drawing.Size(100, 25);
+            this.txtVsixConfig.Size = new System.Drawing.Size(509, 25);
             this.txtVsixConfig.TabIndex = 12;
             // 
             // txtMSBuild
             // 
-            this.txtMSBuild.Location = new System.Drawing.Point(201, 163);
+            this.txtMSBuild.Location = new System.Drawing.Point(201, 161);
             this.txtMSBuild.Name = "txtMSBuild";
-            this.txtMSBuild.Size = new System.Drawing.Size(100, 25);
+            this.txtMSBuild.Size = new System.Drawing.Size(510, 25);
             this.txtMSBuild.TabIndex = 11;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(731, 64);
+            this.button7.Location = new System.Drawing.Point(719, 56);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.Size = new System.Drawing.Size(84, 30);
             this.button7.TabIndex = 10;
             this.button7.Text = "浏览";
             this.button7.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(566, 10);
+            this.button6.Location = new System.Drawing.Point(719, 5);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.Size = new System.Drawing.Size(84, 30);
             this.button6.TabIndex = 9;
             this.button6.Text = "浏览";
             this.button6.UseVisualStyleBackColor = true;
@@ -533,7 +533,7 @@
             // 
             // txtVsixExePath
             // 
-            this.txtVsixExePath.Location = new System.Drawing.Point(81, 64);
+            this.txtVsixExePath.Location = new System.Drawing.Point(81, 59);
             this.txtVsixExePath.Name = "txtVsixExePath";
             this.txtVsixExePath.Size = new System.Drawing.Size(630, 25);
             this.txtVsixExePath.TabIndex = 3;
@@ -549,9 +549,9 @@
             // 
             // txtVsixProject
             // 
-            this.txtVsixProject.Location = new System.Drawing.Point(81, 10);
+            this.txtVsixProject.Location = new System.Drawing.Point(81, 8);
             this.txtVsixProject.Name = "txtVsixProject";
-            this.txtVsixProject.Size = new System.Drawing.Size(463, 25);
+            this.txtVsixProject.Size = new System.Drawing.Size(630, 25);
             this.txtVsixProject.TabIndex = 1;
             // 
             // label6

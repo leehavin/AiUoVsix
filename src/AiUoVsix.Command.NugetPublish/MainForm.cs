@@ -83,19 +83,19 @@ namespace AiUoVsix.Command.NugetPublish
         {
             if (this._nugetItems.Count > 0)
             {
-                this.cbxNuget.DataSource = (object)this._nugetItems.Select<NugetSourceItem, string>((Func<NugetSourceItem, string>)(item => item.NugetSource)).ToList<string>();
+                this.cbxNuget.DataSource = this._nugetItems.Select((item => item.NugetSource)).ToList();
                 this.cbxNuget.SelectedIndex = index;
                 this.cbxVersion.SelectedIndex = (int)this._nugetItems[index].Mode;
             }
             else
-                this.cbxNuget.DataSource = (object)null;
+                this.cbxNuget.DataSource = null;
         }
 
         private void BindGrid()
         {
-            List<ProjectInfo> list = this._projectList.Values.ToList<ProjectInfo>();
+            var list = this._projectList.Values.ToList();
             list.Sort();
-            this.dgwMain.DataSource = (object)list;
+            this.dgwMain.DataSource = list;
         }
 
         private void BindVsix()
@@ -123,26 +123,28 @@ namespace AiUoVsix.Command.NugetPublish
         private void btnSave_Click(object sender, EventArgs e)
         {
             this._vsixItem.Token = this.txtVsixToken.Text;
-            PublishConfig publishConfig = new PublishConfig()
+            var publishConfig = new PublishConfig()
             {
                 NugetIndex = this.cbxNuget.SelectedIndex,
                 NugetItems = this._nugetItems,
                 IsGitCommit = this.chkGit.Checked,
                 VsixItem = this._vsixItem
             };
-            List<ProjectInfo> list = this._projectList.Values.ToList<ProjectInfo>();
+
+            var list = this._projectList.Values.ToList();
             list.Sort();
-            foreach (ProjectInfo projectInfo in list)
+
+            foreach (var projectInfo in list)
             {
                 string relativePath = IOUtil.GetRelativePath(this._basePath, projectInfo.ProjectPath);
                 publishConfig.Projects.Add(relativePath);
             }
             File.WriteAllText(this._configFile, JsonConvert.SerializeObject((object)publishConfig, Formatting.Indented));
-            int num = (int)MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         /// <summary>
-        /// Nuget发布
+        /// NuGet发布
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -150,16 +152,19 @@ namespace AiUoVsix.Command.NugetPublish
         {
             if (this.cbxNuget.SelectedIndex == -1)
             {
-                int num = (int)MessageBox.Show("请选择Nuget Source");
+                MessageBox.Show("请选择Nuget Source");
             }
             else
+            {
                 this.BuildAndPublish(this.GetPublishProjects());
+            }
         }
 
         private void BuildAndPublish(List<ProjectInfo> projs)
         {
             if (projs.Count == 0)
                 return;
+
             this.progressBar1.Maximum = projs.Count;
             this.EnableControls(true);
             this.tabMain.SelectTab(2);
@@ -180,7 +185,7 @@ namespace AiUoVsix.Command.NugetPublish
         /// <returns></returns>
         private List<ProjectInfo> GetPublishProjects()
         {
-            List<ProjectInfo> publishProjects = new List<ProjectInfo>();
+            var publishProjects = new List<ProjectInfo>();
             for (int index = 0; index < this.dgwMain.Rows.Count; ++index)
             {
                 DataGridViewRow row = this.dgwMain.Rows[index];
@@ -200,6 +205,7 @@ namespace AiUoVsix.Command.NugetPublish
             AddSourceForm addSourceForm = new AddSourceForm();
             if (addSourceForm.ShowDialog() != DialogResult.OK)
                 return;
+
             this._nugetItems.Add(new NugetSourceItem()
             {
                 NugetSource = addSourceForm.NugetSource,
@@ -239,16 +245,18 @@ namespace AiUoVsix.Command.NugetPublish
             this.BindCbxNuget(0);
         }
 
+        /// <summary>
+        /// 发布Vsix插件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnVsixPublish_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.txtVsixProject.Text) || string.IsNullOrEmpty(this.txtVsixExePath.Text) || string.IsNullOrEmpty(this.txtMSBuild.Text) || string.IsNullOrEmpty(this.txtVsixPath.Text) || string.IsNullOrEmpty(this.txtVsixPath.Text) || string.IsNullOrEmpty(this.txtVsixToken.Text))
             {
-                int num = (int)MessageBox.Show("VSIX信息不能为空");
+                MessageBox.Show("VSIX信息不能为空");
             }
-            this.BuildAndPublish(new List<ProjectInfo>()
-              {
-                this._vsixProjectInfo
-              });
+            this.BuildAndPublish(new List<ProjectInfo>() { this._vsixProjectInfo });
         }
 
         /// <summary>
@@ -263,7 +271,7 @@ namespace AiUoVsix.Command.NugetPublish
             string fileName = this.dlgAdd.FileName;
             if (this._projectList.ContainsKey(fileName))
             {
-                int num = (int)MessageBox.Show("项目已存在", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("项目已存在", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -272,9 +280,14 @@ namespace AiUoVsix.Command.NugetPublish
             }
         }
 
+        /// <summary>
+        /// 点击Nupkg
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNupkg_Click(object sender, EventArgs e)
         {
-            int num = (int)new PublishNupkgForm(this._nugetItems == null || this._nugetItems.Count <= 0 ? (NugetSourceItem)null : this._nugetItems[this.cbxNuget.SelectedIndex]).ShowDialog();
+            new PublishNupkgForm(this._nugetItems == null || this._nugetItems.Count <= 0 ? null : this._nugetItems[this.cbxNuget.SelectedIndex]).ShowDialog();
         }
     }
 }
