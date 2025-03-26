@@ -177,5 +177,12 @@
       <Name>AiUoVsix.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="db.png" />
+    <Content Include="db1.png" />
+    <Content Include="sp.png" />
+    <Content Include="table.png" />
+    <Content Include="view.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,15 +23,19 @@ namespace AiUoVsix.Command.SqlSugarGen
             InitializeComponent();
             lvlMain = new ListViewEx();
 
-            this.groupBox1.Controls.Add(this.lvlMain);
-            this.lvlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvlMain.CheckBoxes = true;
+            this.lvlMain.Dock = DockStyle.Fill;
+            this.lvlMain.FullRowSelect = true;
+            this.lvlMain.GridLines = true;
             this.lvlMain.HideSelection = false;
-            this.lvlMain.Location = new System.Drawing.Point(3, 21);
+            this.lvlMain.Location = new Point(0, 154);
             this.lvlMain.Name = "lvlMain";
-            this.lvlMain.Size = new System.Drawing.Size(945, 460);
+            this.lvlMain.Size = new Size(1022, 624);
             this.lvlMain.TabIndex = 0;
             this.lvlMain.UseCompatibleStateImageBehavior = false;
+            this.lvlMain.View = View.List;
 
+            this.groupBox1.Controls.Add(this.lvlMain);
             GenUtil.Init(dte);
         }
 

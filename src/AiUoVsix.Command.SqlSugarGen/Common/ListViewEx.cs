@@ -97,10 +97,10 @@ namespace AiUoVsix.Command.SqlSugarGen.Common
 
         private void InitializeComponent()
         {
-            //ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(ListViewEx));
-            //images = new ImageList();
-            //images.ImageStream = (ImageListStreamer)componentResourceManager.GetObject("images.ImageStream");
-            //images.TransparentColor = Color.Transparent;
+            ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(ListViewEx));
+            images = new ImageList();
+            images.ImageStream = (ImageListStreamer)componentResourceManager.GetObject("images.ImageStream");
+            images.TransparentColor = Color.Transparent;
             //images.Images.SetKeyName(0, "00037.png");
             //images.Images.SetKeyName(1, "00040.png");
             //images.Images.SetKeyName(2, "00048.png");
@@ -123,16 +123,16 @@ namespace AiUoVsix.Command.SqlSugarGen.Common
             //images.Images.SetKeyName(19, "01936.png");
             //images.Images.SetKeyName(20, "01964.png");
             //images.Images.SetKeyName(21, "6812.png");
-            //images.Images.SetKeyName(22, "db.png");
-            //images.Images.SetKeyName(23, "db1.png");
+            images.Images.SetKeyName(22, "db.png");
+            images.Images.SetKeyName(23, "db1.png");
             //images.Images.SetKeyName(24, "dir.png");
             //images.Images.SetKeyName(25, "exit.png");
             //images.Images.SetKeyName(26, "info.png");
             //images.Images.SetKeyName(27, "OrmGen.ico");
-            //images.Images.SetKeyName(28, "sp.png");
+            images.Images.SetKeyName(28, "sp.png");
             //images.Images.SetKeyName(29, "splash.jpeg");
-            //images.Images.SetKeyName(30, "table.png");
-            //images.Images.SetKeyName(31, "view.png");
+            images.Images.SetKeyName(30, "table.png");
+            images.Images.SetKeyName(31, "view.png");
         }
     }
 }
