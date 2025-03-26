@@ -35,84 +35,94 @@ namespace AiUoVsix.Command.NugetPublish
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this._basePath = MainForm.CurrentDTE != null ? Path.GetDirectoryName(MainForm.CurrentDTE.SolutionFile) : Application.StartupPath;
-            this._configFile = Path.Combine(this._basePath, "nuget.json");
-            this.txtConfigPath.Text = this._configFile;
-            this._nupkgsPath = Path.Combine(this._basePath, "nupkgs");
-            this.txtNupkgs.Text = this._nupkgsPath;
-            this.cbxVersion.SelectedIndex = 1;
+            _basePath = ((CurrentDTE != null) ? Path.GetDirectoryName(CurrentDTE.SolutionFile) : Application.StartupPath);
+            _configFile = Path.Combine(_basePath, "nuget.json");
+            txtConfigPath.Text = _configFile;
+            _nupkgsPath = Path.Combine(_basePath, "nupkgs");
+            txtNupkgs.Text = _nupkgsPath;
+            cbxVersion.SelectedIndex = 1;
             PublishConfig publishConfig;
-            if (File.Exists(this._configFile))
+            if (File.Exists(_configFile))
             {
-                publishConfig = JsonConvert.DeserializeObject<PublishConfig>(File.ReadAllText(this._configFile));
+                publishConfig = JsonConvert.DeserializeObject<PublishConfig>(File.ReadAllText(_configFile));
             }
             else
             {
                 publishConfig = new PublishConfig();
-                publishConfig.NugetItems.Add(new NugetSourceItem()
+                publishConfig.NugetItems.Add(new NugetSourceItem
                 {
                     NugetSource = "https://api.nuget.org/v3/index.json",
                     NugetKey = "oy2azc4vyfqzcrqqk6raqd2ltz6yqiuuzlozz366ws3mci",
                     Mode = NugetMode.None
                 });
-                publishConfig.VsixItem = new VsixItem()
+                publishConfig.VsixItem = new VsixItem
                 {
                     Token = "3twuo3jaffjjlqjzbn66ijxcma2qffswyt7ajekwnnsg62jbewgq"
                 };
-                if (MainForm.CurrentDTE == null)
-                {
-
-                }
             }
-            this._nugetItems = publishConfig.NugetItems;
-            this.chkGit.Checked = publishConfig.IsGitCommit;
-            this.BindCbxNuget(publishConfig.NugetIndex);
-            this._projectList = new Dictionary<string, ProjectInfo>();
+            _nugetItems = publishConfig.NugetItems;
+            chkGit.Checked = publishConfig.IsGitCommit;
+            BindCbxNuget(publishConfig.NugetIndex);
+            _projectList = new Dictionary<string, ProjectInfo>();
             foreach (string project in publishConfig.Projects)
             {
-                string absolutePath = IOUtil.GetAbsolutePath(this._basePath, project);
-                this._projectList.Add(absolutePath, this._projectParser.ParseInfo(absolutePath, this._basePath));
+                string absolutePath = IOUtil.GetAbsolutePath(_basePath, project);
+                _projectList.Add(absolutePath, _projectParser.ParseInfo(absolutePath, _basePath));
             }
-            this.dlgAdd.InitialDirectory = this._basePath;
-            this.BindGrid();
-            this._vsixItem = publishConfig.VsixItem ?? new VsixItem();
-            this.BindVsix();
+            dlgAdd.InitialDirectory = _basePath;
+            BindGrid();
+            _vsixItem = publishConfig.VsixItem ?? new VsixItem();
+            BindVsix();
         }
 
         private void BindCbxNuget(int index)
         {
-            if (this._nugetItems.Count > 0)
+            if (_nugetItems.Count > 0)
             {
-                this.cbxNuget.DataSource = this._nugetItems.Select((item => item.NugetSource)).ToList();
-                this.cbxNuget.SelectedIndex = index;
-                this.cbxVersion.SelectedIndex = (int)this._nugetItems[index].Mode;
+                cbxNuget.DataSource = _nugetItems.Select((NugetSourceItem item) => item.NugetSource).ToList();
+                cbxNuget.SelectedIndex = index;
+                NugetSourceItem nugetSourceItem = _nugetItems[index];
+                cbxMode.SelectedIndex = (int)nugetSourceItem.Mode;
             }
             else
-                this.cbxNuget.DataSource = null;
+            {
+                cbxNuget.DataSource = null;
+            }
         }
 
         private void BindGrid()
         {
-            var list = this._projectList.Values.ToList();
+            var list = _projectList.Values.ToList();
             list.Sort();
-            this.dgwMain.DataSource = list;
+            dgwMain.DataSource = list;
         }
 
         private void BindVsix()
         {
-            if (!string.IsNullOrEmpty(this._vsixItem.ProjectPath))
-                this.txtVsixProject.Text = IOUtil.GetAbsolutePath(this._basePath, this._vsixItem.ProjectPath);
-            if (!string.IsNullOrEmpty(this._vsixItem.VsixPath))
-                this.txtVsixExePath.Text = IOUtil.GetAbsolutePath(this._basePath, this._vsixItem.VsixPath);
-            if (!string.IsNullOrEmpty(this._vsixItem.ConfigPath))
-                this.txtVsixPath.Text = IOUtil.GetAbsolutePath(this._basePath, this._vsixItem.ConfigPath);
-            if (!string.IsNullOrEmpty(this._vsixItem.Token))
-                this.txtVsixToken.Text = this._vsixItem.Token;
-            if (!string.IsNullOrEmpty(this._vsixItem.PublisherExePath))
-                this.txtVsixExePath.Text = this._vsixItem.PublisherExePath;
-            if (string.IsNullOrEmpty(this._vsixItem.MSBuildExePath))
-                return;
-            this.txtMSBuild.Text = this._vsixItem.MSBuildExePath;
+            if (!string.IsNullOrEmpty(_vsixItem.ProjectPath))
+            {
+                txtVsixProject.Text = IOUtil.GetAbsolutePath(_basePath, _vsixItem.ProjectPath);
+            }
+            if (!string.IsNullOrEmpty(_vsixItem.VsixPath))
+            {
+                txtVsixPath.Text = IOUtil.GetAbsolutePath(_basePath, _vsixItem.VsixPath);
+            }
+            if (!string.IsNullOrEmpty(_vsixItem.ConfigPath))
+            {
+                txtVsixConfig.Text = IOUtil.GetAbsolutePath(_basePath, _vsixItem.ConfigPath);
+            }
+            if (!string.IsNullOrEmpty(_vsixItem.Token))
+            {
+                txtVsixToken.Text = _vsixItem.Token;
+            }
+            if (!string.IsNullOrEmpty(_vsixItem.PublisherExePath))
+            {
+                txtVsixExePath.Text = _vsixItem.PublisherExePath;
+            }
+            if (!string.IsNullOrEmpty(_vsixItem.MSBuildExePath))
+            {
+                txtMSBuild.Text = _vsixItem.MSBuildExePath;
+            }
         }
 
         /// <summary>
@@ -165,12 +175,12 @@ namespace AiUoVsix.Command.NugetPublish
             if (projs.Count == 0)
                 return;
 
-            this.progressBar1.Maximum = projs.Count;
-            this.EnableControls(true);
-            this.tabMain.SelectTab(2);
-            this.txtOutput.Clear();
-            this.lblResult.Text = "正在生成...";
-            this.bgwMain.RunWorkerAsync((object)(projs, this.cbxVersion.SelectedIndex, (NugetMode)this.cbxVersion.SelectedIndex, this.chkGit.Checked, this.chkRelease.Checked, this.txtBeta.Text));
+            progressBar1.Maximum = projs.Count;
+            EnableControls(executing: true);
+            tabMain.SelectTab(2);
+            txtOutput.Clear();
+            lblResult.Text = "正在生成...";
+            bgwMain.RunWorkerAsync((projs, cbxVersion.SelectedIndex, (NugetMode)cbxMode.SelectedIndex, chkGit.Checked, chkRelease.Checked, txtBeta.Text));
         }
 
         private void EnableControls(bool executing)
@@ -288,6 +298,40 @@ namespace AiUoVsix.Command.NugetPublish
         private void btnNupkg_Click(object sender, EventArgs e)
         {
             new PublishNupkgForm(this._nugetItems == null || this._nugetItems.Count <= 0 ? null : this._nugetItems[this.cbxNuget.SelectedIndex]).ShowDialog();
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var projectInfo = (ProjectInfo)dgwMain.SelectedRows[0].DataBoundItem;
+            _projectList.Remove(projectInfo.ProjectPath);
+            BindGrid();
+        }
+
+        /// <summary>
+        /// 编译并发布
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BuildDeployToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = (ProjectInfo)dgwMain.SelectedRows[0].DataBoundItem;
+            List<ProjectInfo> projs = new List<ProjectInfo> { item };
+            BuildAndPublish(projs);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmenuGrid_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -68,7 +68,7 @@
             this.txtVsixToken = new System.Windows.Forms.TextBox();
             this.txtVsixConfig = new System.Windows.Forms.TextBox();
             this.txtMSBuild = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnVsixProject = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -95,6 +95,7 @@
             this.btnAddSource = new System.Windows.Forms.Button();
             this.txtBeta = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.cbxMode = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -371,7 +372,7 @@
             this.tabPage2.Controls.Add(this.txtVsixToken);
             this.tabPage2.Controls.Add(this.txtVsixConfig);
             this.tabPage2.Controls.Add(this.txtMSBuild);
-            this.tabPage2.Controls.Add(this.button7);
+            this.tabPage2.Controls.Add(this.btnVsixProject);
             this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label11);
@@ -468,14 +469,14 @@
             this.txtMSBuild.Size = new System.Drawing.Size(510, 25);
             this.txtMSBuild.TabIndex = 11;
             // 
-            // button7
+            // btnVsixProject
             // 
-            this.button7.Location = new System.Drawing.Point(719, 56);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(84, 30);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "浏览";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnVsixProject.Location = new System.Drawing.Point(719, 56);
+            this.btnVsixProject.Name = "btnVsixProject";
+            this.btnVsixProject.Size = new System.Drawing.Size(84, 30);
+            this.btnVsixProject.TabIndex = 10;
+            this.btnVsixProject.Text = "浏览";
+            this.btnVsixProject.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -630,19 +631,22 @@
             this.DeleteToolStripMenuItem,
             this.BuildDeployToolStripMenuItem});
             this.cmenuGrid.Name = "cmenuGrid";
-            this.cmenuGrid.Size = new System.Drawing.Size(154, 52);
+            this.cmenuGrid.Size = new System.Drawing.Size(211, 80);
+            this.cmenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.cmenuGrid_Opening);
             // 
             // DeleteToolStripMenuItem
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.DeleteToolStripMenuItem.Text = "删除";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // BuildDeployToolStripMenuItem
             // 
             this.BuildDeployToolStripMenuItem.Name = "BuildDeployToolStripMenuItem";
-            this.BuildDeployToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.BuildDeployToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.BuildDeployToolStripMenuItem.Text = "编译并发布";
+            this.BuildDeployToolStripMenuItem.Click += new System.EventHandler(this.BuildDeployToolStripMenuItem_Click);
             // 
             // dlgAdd
             // 
@@ -672,7 +676,7 @@
             // 
             // btnEditSource
             // 
-            this.btnEditSource.Location = new System.Drawing.Point(552, 71);
+            this.btnEditSource.Location = new System.Drawing.Point(538, 71);
             this.btnEditSource.Name = "btnEditSource";
             this.btnEditSource.Size = new System.Drawing.Size(75, 23);
             this.btnEditSource.TabIndex = 15;
@@ -682,7 +686,7 @@
             // 
             // btnAddSource
             // 
-            this.btnAddSource.Location = new System.Drawing.Point(646, 71);
+            this.btnAddSource.Location = new System.Drawing.Point(619, 71);
             this.btnAddSource.Name = "btnAddSource";
             this.btnAddSource.Size = new System.Drawing.Size(75, 23);
             this.btnAddSource.TabIndex = 16;
@@ -706,11 +710,24 @@
             this.label14.TabIndex = 18;
             this.label14.Text = "后缀";
             // 
+            // cbxMode
+            // 
+            this.cbxMode.FormattingEnabled = true;
+            this.cbxMode.Items.AddRange(new object[] {
+            "不生成符号包",
+            "生成符号包",
+            "嵌入符号包"});
+            this.cbxMode.Location = new System.Drawing.Point(701, 72);
+            this.cbxMode.Name = "cbxMode";
+            this.cbxMode.Size = new System.Drawing.Size(121, 23);
+            this.cbxMode.TabIndex = 19;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(829, 672);
+            this.Controls.Add(this.cbxMode);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtBeta);
             this.Controls.Add(this.btnAddSource);
@@ -788,7 +805,7 @@
         private System.Windows.Forms.TextBox txtVsixToken;
         private System.Windows.Forms.TextBox txtVsixConfig;
         private System.Windows.Forms.TextBox txtMSBuild;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnVsixProject;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -818,6 +835,7 @@
         private System.Windows.Forms.Button btnAddSource;
         private System.Windows.Forms.TextBox txtBeta;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cbxMode;
     }
 }
 
