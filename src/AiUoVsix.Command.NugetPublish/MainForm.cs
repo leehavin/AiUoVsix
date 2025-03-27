@@ -4,8 +4,11 @@ using AiUoVsix.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -307,6 +310,7 @@ namespace AiUoVsix.Command.NugetPublish
         /// <param name="e"></param>
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             var projectInfo = (ProjectInfo)dgwMain.SelectedRows[0].DataBoundItem;
             _projectList.Remove(projectInfo.ProjectPath);
             BindGrid();
@@ -323,15 +327,216 @@ namespace AiUoVsix.Command.NugetPublish
             List<ProjectInfo> projs = new List<ProjectInfo> { item };
             BuildAndPublish(projs);
         }
-
+          
         /// <summary>
-        /// 
+        /// NuGet选择事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmenuGrid_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void cbxNuget_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this._selectedNugetSource = this._nugetItems[this.cbxNuget.SelectedIndex];
+            this.cbxMode.SelectedIndex = (int)this._selectedNugetSource.Mode;
+        }
 
+        /// <summary>
+        /// 进程显示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void bgwMain_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var tuple = ((List<ProjectInfo>, int, NugetMode, bool, bool, string))e.Argument;
+            Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+            foreach (ProjectInfo item2 in tuple.Item1)
+            {
+                if (item2.Status)
+                {
+                    _projectParser.UpdateVersion(item2, tuple.Item2, tuple.Item6);
+                    string text = item2.Version.ToString();
+                    string item = item2.ProjectName + " v" + text;
+                    if (dictionary.ContainsKey(text))
+                    {
+                        dictionary[text].Add(item);
+                        continue;
+                    }
+                    dictionary.Add(text, new List<string> { item });
+                }
+            }
+
+            var stringBuilder = new StringBuilder();
+            if (dictionary.Count == 1)
+            {
+                stringBuilder.Append("发布版本: v" + dictionary.First().Key);
+            }
+            else
+            {
+                stringBuilder.Append("发布版本:");
+                foreach (List<string> value in dictionary.Values)
+                {
+                    stringBuilder.Append(string.Join(";", value));
+                }
+            }
+
+            if (tuple.Item4)
+            {
+                CommandRunner commandRunner = new CommandRunner("git", _basePath);
+                string gitOut = commandRunner.Run("add .") + Environment.NewLine;
+                gitOut += commandRunner.Run("commit -m \"" + stringBuilder.ToString() + "\"");
+                _synchronizationContext.Send(delegate
+                {
+                    txtDetail.AppendText(gitOut + Environment.NewLine);
+                }, gitOut);
+            }
+
+            for (int i = 0; i < tuple.Item1.Count; i++)
+            {
+                if (bgwMain.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                ProjectInfo projectInfo = tuple.Item1[i];
+                if (!projectInfo.Status)
+                {
+                    continue;
+                }
+                string cmd = null;
+                string text2 = (tuple.Item5 ? "Release" : "Debug");
+                switch (projectInfo.PublishType)
+                {
+                    case PublishType.Nuget:
+                        switch (projectInfo.ProjectType)
+                        {
+                            case ProjectType.Standard:
+                            case ProjectType.Core:
+                            case ProjectType.Net:
+                                {
+                                    string text3 = string.Empty;
+                                    switch (tuple.Item3)
+                                    {
+                                        case NugetMode.Symbols:
+                                            text3 = "--include-symbols -p:SymbolPackageFormat=snupkg";
+                                            break;
+                                        case NugetMode.Embedded:
+                                            text3 = "-p:DebugSymbols=true -p:DebugType=embedded";
+                                            break;
+                                    }
+                                    cmd = "dotnet build " + projectInfo.ProjectPath + " -c " + text2;
+                                    ExecAndOutput(cmd, i, projectInfo.ProjectName, "编译");
+                                    cmd = "dotnet pack " + projectInfo.ProjectPath + " -c " + text2 + " -o " + _nupkgsPath + " --nologo -v m  " + text3;
+                                    ExecAndOutput(cmd, i, projectInfo.ProjectName, "打包");
+                                    break;
+                                }
+                            case ProjectType.Framework:
+                                cmd = "nuget pack " + projectInfo.ProjectPath + " -OutputDirectory " + _nupkgsPath + " -Symbols -SymbolPackageFormat snupkg";
+                                ExecAndOutput(cmd, i, projectInfo.ProjectName, "编译");
+                                break;
+                        }
+                        break;
+                    case PublishType.Vsix:
+                        cmd = "\"" + txtMSBuild.Text + "\" " + projectInfo.ProjectPath + " -t:rebuild -p:Configuration=Debug";
+                        ExecAndOutput(cmd, i, projectInfo.ProjectName, "编译");
+                        break;
+                }
+
+                switch (projectInfo.PublishType)
+                {
+                    case PublishType.Nuget:
+                        {
+                            string text4 = Path.Combine(_nupkgsPath, projectInfo.ProjectName + "." + projectInfo.Version.ToString());
+                            string text5 = text4 + ".nupkg";
+                            if (!File.Exists(text5))
+                            {
+                                throw new Exception("文件不存在：" + text5);
+                            }
+                            NugetSourceItem selectedNugetSource = _selectedNugetSource;
+                            if (projectInfo.ProjectType == ProjectType.Framework)
+                            {
+                                cmd = "nuget push " + text5 + " -ApiKey " + selectedNugetSource.NugetKey + " -Source " + selectedNugetSource.NugetSource;
+                            }
+                            else
+                            {
+                                cmd = "dotnet nuget push " + text5 + " -k " + selectedNugetSource.NugetKey + " -s " + selectedNugetSource.NugetSource;
+                            }
+                            ExecAndOutput(cmd, i, projectInfo.ProjectName, "发布.nupkg");
+                            string text6 = text4 + ".snupkg";
+                            if (File.Exists(text6))
+                            {
+                                cmd = "dotnet nuget push " + text6 + " -sk " + selectedNugetSource.SymbolKey + " -ss " + selectedNugetSource.SymbolSource;
+                                ExecAndOutput(cmd, i, projectInfo.ProjectName, "发布.snupkg");
+                            }
+                            break;
+                        }
+                    case PublishType.Vsix:
+                        cmd = "\"" + txtVsixExePath.Text + "\" publish -payload \"" + txtVsixPath.Text + "\" -publishManifest \"" + txtVsixConfig.Text + "\" -personalAccessToken \"" + txtVsixToken.Text + "\"";
+                        _synchronizationContext.Send(delegate
+                        {
+                            txtDetail.AppendText(cmd + Environment.NewLine);
+                        }, cmd);
+                        ExecAndOutput(cmd, i, projectInfo.ProjectName, "发布.vsix");
+                        break;
+                }
+                bgwMain.ReportProgress(i, i);
+            }
+        }
+
+        /// <summary>
+        /// 发布进程
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgwMain_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = (int)e.UserState + 1;
+        }
+
+        /// <summary>
+        /// 发布完毕
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgwMain_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                lblResult.ForeColor = Color.Red;
+                lblResult.Text = "出现异常: ";
+                lblResult.Text += e.Error.Message;
+            }
+            else
+            {
+                lblResult.Text = "操作完成";
+            }
+            progressBar1.Value = 0;
+            progressBar1.Maximum = 0;
+            txtOutput.AppendText("============ 结 束 ==========");
+            EnableControls(executing: false);
+        }
+
+
+        private void ExecAndOutput(string cmd, int index, string project, string type)
+        {
+            string strOut = null;
+            if (WindowsUtil.RunCommand(cmd, out var output))
+            {
+                strOut += $"项目{index + 1}: {project} =>{type}成功。{Environment.NewLine}";
+            }
+            else
+            {
+                strOut += $"项目{index + 1}: {project} =>{type}失败！{Environment.NewLine}";
+                strOut = strOut + "cmd: " + cmd + Environment.NewLine;
+                strOut = strOut + output + Environment.NewLine;
+            }
+            _synchronizationContext.Send(delegate
+            {
+                txtOutput.AppendText(strOut);
+            }, strOut);
+            _synchronizationContext.Send(delegate
+            {
+                txtDetail.AppendText(output + Environment.NewLine);
+            }, output);
         }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,6 +58,9 @@
             this.dgwcPublishType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgwcStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgwcProjectPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BuildDeployToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtVsixPath = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -85,9 +89,6 @@
             this.txtDetail = new System.Windows.Forms.TextBox();
             this.chkGit = new System.Windows.Forms.CheckBox();
             this.chkRelease = new System.Windows.Forms.CheckBox();
-            this.cmenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BuildDeployToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgAdd = new System.Windows.Forms.OpenFileDialog();
             this.lblResult = new System.Windows.Forms.Label();
             this.btnDelSource = new System.Windows.Forms.Button();
@@ -100,10 +101,10 @@
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwMain)).BeginInit();
+            this.cmenuGrid.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.cmenuGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -173,6 +174,7 @@
             this.cbxNuget.Name = "cbxNuget";
             this.cbxNuget.Size = new System.Drawing.Size(295, 23);
             this.cbxNuget.TabIndex = 7;
+            this.cbxNuget.SelectedIndexChanged += new System.EventHandler(this.cbxNuget_SelectedIndexChanged);
             // 
             // cbxVersion
             // 
@@ -268,6 +270,12 @@
             this.btnPublish.UseVisualStyleBackColor = true;
             this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
             // 
+            // bgwMain
+            // 
+            this.bgwMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwMain_DoWork);
+            this.bgwMain.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwMain_ProgressChanged);
+            this.bgwMain.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwMain_RunWorkerCompleted);
+            // 
             // tabMain
             // 
             this.tabMain.Controls.Add(this.tabPage1);
@@ -296,6 +304,10 @@
             this.dgwMain.AllowUserToAddRows = false;
             this.dgwMain.AllowUserToDeleteRows = false;
             this.dgwMain.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgwMain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgwMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgwMain.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dgwMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwMain.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgwcProjectName,
@@ -304,13 +316,17 @@
             this.dgwcPublishType,
             this.dgwcStatus,
             this.dgwcProjectPath});
-            this.dgwMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgwMain.ContextMenuStrip = this.cmenuGrid;
             this.dgwMain.Location = new System.Drawing.Point(3, 3);
+            this.dgwMain.MultiSelect = false;
             this.dgwMain.Name = "dgwMain";
+            this.dgwMain.ReadOnly = true;
+            this.dgwMain.RowHeadersVisible = false;
             this.dgwMain.RowHeadersWidth = 51;
             this.dgwMain.RowTemplate.Height = 27;
+            this.dgwMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgwMain.Size = new System.Drawing.Size(801, 400);
-            this.dgwMain.TabIndex = 0;
+            this.dgwMain.TabIndex = 0; 
             // 
             // dgwcProjectName
             // 
@@ -318,7 +334,8 @@
             this.dgwcProjectName.HeaderText = "项目名称";
             this.dgwcProjectName.MinimumWidth = 6;
             this.dgwcProjectName.Name = "dgwcProjectName";
-            this.dgwcProjectName.Width = 125;
+            this.dgwcProjectName.ReadOnly = true;
+            this.dgwcProjectName.Width = 96;
             // 
             // dgwcVersion
             // 
@@ -326,7 +343,8 @@
             this.dgwcVersion.HeaderText = "项目版本";
             this.dgwcVersion.MinimumWidth = 6;
             this.dgwcVersion.Name = "dgwcVersion";
-            this.dgwcVersion.Width = 125;
+            this.dgwcVersion.ReadOnly = true;
+            this.dgwcVersion.Width = 96;
             // 
             // dgwcProjectType
             // 
@@ -334,7 +352,8 @@
             this.dgwcProjectType.HeaderText = "运行时";
             this.dgwcProjectType.MinimumWidth = 6;
             this.dgwcProjectType.Name = "dgwcProjectType";
-            this.dgwcProjectType.Width = 125;
+            this.dgwcProjectType.ReadOnly = true;
+            this.dgwcProjectType.Width = 81;
             // 
             // dgwcPublishType
             // 
@@ -342,7 +361,8 @@
             this.dgwcPublishType.HeaderText = "发布类型";
             this.dgwcPublishType.MinimumWidth = 6;
             this.dgwcPublishType.Name = "dgwcPublishType";
-            this.dgwcPublishType.Width = 125;
+            this.dgwcPublishType.ReadOnly = true;
+            this.dgwcPublishType.Width = 96;
             // 
             // dgwcStatus
             // 
@@ -350,7 +370,8 @@
             this.dgwcStatus.HeaderText = "状态";
             this.dgwcStatus.MinimumWidth = 6;
             this.dgwcStatus.Name = "dgwcStatus";
-            this.dgwcStatus.Width = 125;
+            this.dgwcStatus.ReadOnly = true;
+            this.dgwcStatus.Width = 66;
             // 
             // dgwcProjectPath
             // 
@@ -358,7 +379,31 @@
             this.dgwcProjectPath.HeaderText = "项目路径";
             this.dgwcProjectPath.MinimumWidth = 6;
             this.dgwcProjectPath.Name = "dgwcProjectPath";
-            this.dgwcProjectPath.Width = 125;
+            this.dgwcProjectPath.ReadOnly = true;
+            this.dgwcProjectPath.Width = 96;
+            // 
+            // cmenuGrid
+            // 
+            this.cmenuGrid.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteToolStripMenuItem,
+            this.BuildDeployToolStripMenuItem});
+            this.cmenuGrid.Name = "cmenuGrid";
+            this.cmenuGrid.Size = new System.Drawing.Size(154, 52); 
+            // 
+            // DeleteToolStripMenuItem
+            // 
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.DeleteToolStripMenuItem.Text = "删除";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
+            // 
+            // BuildDeployToolStripMenuItem
+            // 
+            this.BuildDeployToolStripMenuItem.Name = "BuildDeployToolStripMenuItem";
+            this.BuildDeployToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.BuildDeployToolStripMenuItem.Text = "编译并发布";
+            this.BuildDeployToolStripMenuItem.Click += new System.EventHandler(this.BuildDeployToolStripMenuItem_Click);
             // 
             // tabPage2
             // 
@@ -624,30 +669,6 @@
             this.chkRelease.Text = "发布Release";
             this.chkRelease.UseVisualStyleBackColor = true;
             // 
-            // cmenuGrid
-            // 
-            this.cmenuGrid.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DeleteToolStripMenuItem,
-            this.BuildDeployToolStripMenuItem});
-            this.cmenuGrid.Name = "cmenuGrid";
-            this.cmenuGrid.Size = new System.Drawing.Size(211, 80);
-            this.cmenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.cmenuGrid_Opening);
-            // 
-            // DeleteToolStripMenuItem
-            // 
-            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.DeleteToolStripMenuItem.Text = "删除";
-            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
-            // 
-            // BuildDeployToolStripMenuItem
-            // 
-            this.BuildDeployToolStripMenuItem.Name = "BuildDeployToolStripMenuItem";
-            this.BuildDeployToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.BuildDeployToolStripMenuItem.Text = "编译并发布";
-            this.BuildDeployToolStripMenuItem.Click += new System.EventHandler(this.BuildDeployToolStripMenuItem_Click);
-            // 
             // dlgAdd
             // 
             this.dlgAdd.DefaultExt = "csproj";
@@ -756,13 +777,13 @@
             this.tabMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgwMain)).EndInit();
+            this.cmenuGrid.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.cmenuGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
