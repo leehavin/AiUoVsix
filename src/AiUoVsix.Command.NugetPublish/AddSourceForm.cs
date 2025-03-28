@@ -25,16 +25,36 @@ namespace AiUoVsix.Command.NugetPublish
         public AddSourceForm(NugetSourceItem item = null)
         {
             this.InitializeComponent();
-            //if (item != null)
-            //{
-            //    this.txtNugetKey.Text = item.NugetKey;
-            //    this.txtNugetSource.Text = item.NugetSource;
-            //    this.txtSymbolSource.Text = item.SymbolSource;
-            //    this.txtSymbolKey.Text = item.SymbolKey;
-            //    this.cbxMode.SelectedIndex = (int)item.Mode;
-            //}
-            //else
-            //    this.cbxMode.SelectedIndex = 2;
+            if (item != null)
+            {
+                this.txtNugetKey.Text = item.NugetKey;
+                this.txtNugetSource.Text = item.NugetSource;
+                this.txtSymbolSource.Text = item.SymbolSource;
+                this.txtSymbolKey.Text = item.SymbolKey;
+                this.cbxMode.SelectedIndex = (int)item.Mode;
+            }
+            else
+                this.cbxMode.SelectedIndex = 2;
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            NugetSource = txtNugetSource.Text;
+            NugetKey = txtNugetKey.Text;
+            SymbolSource = txtSymbolSource.Text;
+            SymbolKey = txtSymbolKey.Text;
+            Mode = (NugetMode)cbxMode.SelectedIndex;
+            base.DialogResult = DialogResult.OK;
+        }
+
+        private void AddSourceForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
