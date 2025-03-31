@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="AiUoVsix.8E2F55F5-E714-4F63-9A89-6C9E1A6F7BE1" Version="1.0.3" Publisher="leehavin" Language="zh-Hans" />
+        <Identity Id="AiUoVsix.8E2F55F5-E714-4F63-9A89-6C9E1A6F7BE1" Version="1.0.4" Publisher="leehavin" Language="en-US" />
         <DisplayName>AiUoVsix</DisplayName>
         <Description xml:space="preserve">The AiUo framework development assistant tool supports SQLSugar database generation, NuGet publishing, and Docker deployment.More features are being continuously updated.</Description>
         <Icon>aiuo-icon-256.ico</Icon>
