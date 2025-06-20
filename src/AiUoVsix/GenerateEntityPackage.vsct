@@ -45,6 +45,13 @@
 					<ButtonText>项目发布到Docker</ButtonText>
 				</Strings>
 			</Button>
+			<Button guid="guidGenerateEntityPackageCmdSet" id="cmdidEntityFrameworkCoreCommand" priority="0x0104" type="Button">
+				<Parent guid="guidGenerateEntityPackageCmdSet" id="AiUoSubMenuGroup" />
+
+				<Strings>
+					<ButtonText>EntityFramework Core工具</ButtonText>
+				</Strings>
+			</Button>
 		</Buttons>
 	</Commands>
 
@@ -57,6 +64,7 @@
 			<IDSymbol name="cmdidSqlSugarGenCommand" value="0x0101" />
 			<IDSymbol name="cmdidNugetPublishCommand" value="0x0102" />
 			<IDSymbol name="cmdidDockerPublishCommand" value="0x0103" />
+			<IDSymbol name="cmdidEntityFrameworkCoreCommand" value="0x0104" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

@@ -19,6 +19,7 @@ namespace AiUoVsix
             await DockerPublishCommand.InitializeAsync(this);
             await SqlSugarGenCommand.InitializeAsync(this);
             await NugetPublishCommand.InitializeAsync(this);
+            await EntityFrameworkCoreCommand.InitializeAsync(this);
         }
     }
 }

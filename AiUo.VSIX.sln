@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiUoVsix", "src\AiUoVsix\Ai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiUoVsix.Common", "src\AiUoVsix.Common\AiUoVsix.Common.csproj", "{D69038D1-4DBE-4FF6-8635-CB224560149A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiUoVsix.Command.EntityFrameworkCore", "src\AiUoVsix.Command.EntityFrameworkCore\AiUoVsix.Command.EntityFrameworkCore.csproj", "{EB5ED382-549B-4184-8584-0732956BAA63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{D69038D1-4DBE-4FF6-8635-CB224560149A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D69038D1-4DBE-4FF6-8635-CB224560149A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D69038D1-4DBE-4FF6-8635-CB224560149A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB5ED382-549B-4184-8584-0732956BAA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB5ED382-549B-4184-8584-0732956BAA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB5ED382-549B-4184-8584-0732956BAA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB5ED382-549B-4184-8584-0732956BAA63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
