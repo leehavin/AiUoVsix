@@ -87,10 +87,6 @@
       <Project>{baa7eb4b-5af3-4537-8664-997f44a9986e}</Project>
       <Name>AiUoVsix.Command.DockerPublish</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AiUoVsix.Command.EntityFrameworkCore\AiUoVsix.Command.EntityFrameworkCore.csproj">
-      <Project>{eb5ed382-549b-4184-8584-0732956baa63}</Project>
-      <Name>AiUoVsix.Command.EntityFrameworkCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AiUoVsix.Command.NugetPublish\AiUoVsix.Command.NugetPublish.csproj">
       <Project>{e144957c-8930-445a-aacc-15e9af61d19f}</Project>
       <Name>AiUoVsix.Command.NugetPublish</Name>

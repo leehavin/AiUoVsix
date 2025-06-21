@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AiUoVsix.Command.EntityFrameworkCore.ViewModels"
+             xmlns:models="using:AiUoVsix.Command.EntityFrameworkCore.Models"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+             x:Class="AiUoVsix.Command.EntityFrameworkCore.Views.DatabaseConnectionEditView"
+             x:DataType="vm:DatabaseConnectionViewModel">
+
+  <Design.DataContext>
+    <vm:DatabaseConnectionViewModel/>
+  </Design.DataContext>
+
+  <ScrollViewer>
+    <StackPanel Margin="20" Spacing="15">
+      
+      <!-- 连接名称 -->
+      <StackPanel>
+        <TextBlock Text="连接名称 *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Name}" Watermark="请输入连接名称"/>
+      </StackPanel>
+      
+      <!-- 数据库类型 -->
+      <StackPanel>
+        <TextBlock Text="数据库类型 *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <ComboBox ItemsSource="{Binding DatabaseTypes}" 
+                  SelectedItem="{Binding DatabaseType}"
+                  HorizontalAlignment="Stretch">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="models:DatabaseType">
+              <TextBlock Text="{Binding}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+      
+      <!-- 服务器地址 -->
+      <StackPanel Name="ServerPanel">
+        <TextBlock Text="服务器地址 *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Server}" Watermark="localhost 或 IP地址"/>
+      </StackPanel>
+      
+      <!-- 端口 -->
+      <StackPanel Name="PortPanel">
+        <TextBlock Text="端口" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <NumericUpDown Value="{Binding Port}" Minimum="1" Maximum="65535" Increment="1"/>
+      </StackPanel>
+      
+      <!-- 数据库名称/文件路径 -->
+      <StackPanel>
+        <TextBlock Text="数据库名称" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Database}" Watermark="请输入数据库名称或文件路径"/>
+      </StackPanel>
+      
+      <!-- SQL Server 集成身份验证 -->
+      <StackPanel Name="IntegratedSecurityPanel">
+        <CheckBox IsChecked="{Binding IntegratedSecurity}" Content="使用Windows身份验证"/>
+      </StackPanel>
+      
+      <!-- 用户名 -->
+      <StackPanel Name="UsernamePanel">
+        <TextBlock Text="用户名" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Username}" Watermark="请输入用户名" IsEnabled="{Binding !IntegratedSecurity}"/>
+      </StackPanel>
+      
+      <!-- 密码 -->
+      <StackPanel Name="PasswordPanel">
+        <TextBlock Text="密码" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="请输入密码" IsEnabled="{Binding !IntegratedSecurity}"/>
+      </StackPanel>
+      
+      <!-- 连接字符串预览 -->
+      <StackPanel>
+        <TextBlock Text="连接字符串预览" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding ConnectionString}" IsReadOnly="True" 
+                 TextWrapping="Wrap" MinHeight="60" 
+                 Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+      </StackPanel>
+      
+      <!-- 测试连接区域 -->
+      <StackPanel>
+        <Button Content="测试连接" 
+                Command="{Binding TestConnectionCommand}"
+                HorizontalAlignment="Left"
+                Classes="accent"
+                IsEnabled="{Binding !IsTestingConnection}"/>
+        
+        <!-- 测试结果 -->
+        <TextBlock Text="{Binding TestResult}" 
+                   Margin="0,10,0,0"
+                   FontWeight="SemiBold"
+                   IsVisible="{Binding TestResult, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+        
+        <!-- 测试中指示器 -->
+        <StackPanel Orientation="Horizontal" 
+                    Margin="0,10,0,0"
+                    IsVisible="{Binding IsTestingConnection}">
+          <TextBlock Text="⏳ 正在测试连接..." 
+                     FontStyle="Italic"
+                     Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+        </StackPanel>
+      </StackPanel>
+      
+    </StackPanel>
+  </ScrollViewer>
+  
+</UserControl>

@@ -1,0 +1,131 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AiUoVsix.Command.EntityFrameworkCore.App"
+             RequestedThemeVariant="Default">
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+        
+        <!-- 自定义样式 -->
+        <Style>
+            <!-- 卡片样式 -->
+            <Style Selector="Border.card">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BoxShadow" Value="0 4 6 0 #19000000, 0 2 4 0 #0F000000"/>
+                <Setter Property="Margin" Value="8"/>
+            </Style>
+            
+            <!-- 主要按钮样式 -->
+            <Style Selector="Button.primary">
+                <Setter Property="Background" Value="#3B82F6"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16,10"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style Selector="Button.primary:pointerover">
+                <Setter Property="Background" Value="#2563EB"/>
+            </Style>
+            
+            <!-- 次要按钮样式 -->
+            <Style Selector="Button.secondary">
+                <Setter Property="Background" Value="#F3F4F6"/>
+                <Setter Property="Foreground" Value="#374151"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16,10"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            </Style>
+            <Style Selector="Button.secondary:pointerover">
+                <Setter Property="Background" Value="#E5E7EB"/>
+            </Style>
+            
+            <!-- 现代化按钮样式 -->
+            <Style Selector="Button.modern">
+                <Setter Property="Background" Value="#6366F1"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="4"/>
+            </Style>
+            <Style Selector="Button.modern:pointerover">
+                <Setter Property="Background" Value="#4F46E5"/>
+            </Style>
+            
+            <!-- 现代化ListBox样式 -->
+            <Style Selector="ListBox.modern">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style Selector="ListBox.modern ListBoxItem">
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="Margin" Value="4,2"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+            <Style Selector="ListBox.modern ListBoxItem:selected">
+                <Setter Property="Background" Value="#EEF2FF"/>
+                <Setter Property="Foreground" Value="#3730A3"/>
+            </Style>
+            <Style Selector="ListBox.modern ListBoxItem:pointerover">
+                <Setter Property="Background" Value="#F8FAFC"/>
+            </Style>
+            
+            <!-- 现代化TreeView样式 -->
+            <Style Selector="TreeView.modern">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style Selector="TreeView.modern TreeViewItem">
+                <Setter Property="Padding" Value="8,6"/>
+                <Setter Property="Margin" Value="2,1"/>
+            </Style>
+            
+            <!-- 现代化DataGrid样式 -->
+            <Style Selector="DataGrid.modern">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="RowBackground" Value="White"/>
+            </Style>
+            <Style Selector="DataGrid.modern DataGridColumnHeader">
+                <Setter Property="Background" Value="#F3F4F6"/>
+                <Setter Property="Foreground" Value="#374151"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            </Style>
+            <Style Selector="DataGrid.modern DataGridCell">
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                <Setter Property="BorderBrush" Value="#F3F4F6"/>
+            </Style>
+            <Style Selector="DataGrid.modern DataGridRow:selected DataGridCell">
+                <Setter Property="Background" Value="#EEF2FF"/>
+                <Setter Property="Foreground" Value="#1E40AF"/>
+            </Style>
+            
+            <!-- 文本样式 -->
+            <Style Selector="TextBlock.section-title">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+            <Style Selector="TextBlock.subtitle">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="#6B7280"/>
+            </Style>
+            <Style Selector="TextBlock.caption">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="#9CA3AF"/>
+            </Style>
+        </Style>
+    </Application.Styles>
+</Application>

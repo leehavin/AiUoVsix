@@ -1,0 +1,16 @@
+{
+  "databaseConnections": [
+    {
+      "id": "93d3fd8f-30c7-4d43-8f78-ecb53a02aa36",
+      "name": "local",
+      "databaseType": "MySQL",
+      "server": "v4.weienergy.cn",
+      "port": 3307,
+      "database": "WeiCloudDB.XX.V6",
+      "username": "root",
+      "password": "Zrhdb#2019",
+      "integratedSecurity": false,
+      "connectionString": "Server=v4.weienergy.cn;Port=3307;Database=WeiCloudDB.XX.V6;Uid=root;Pwd=Zrhdb#2019;"
+    }
+  ]
+}

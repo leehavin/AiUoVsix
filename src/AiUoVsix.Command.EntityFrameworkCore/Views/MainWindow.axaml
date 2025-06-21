@@ -1,0 +1,469 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AiUoVsix.Command.EntityFrameworkCore.ViewModels"
+        xmlns:views="using:AiUoVsix.Command.EntityFrameworkCore.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
+        x:Class="AiUoVsix.Command.EntityFrameworkCore.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="数据库连接管理 - AiUoVsix EntityFramework Core"
+        MinWidth="900" MinHeight="600"
+        Background="#F5F5F7">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <!-- 现代化卡片样式 -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #1A000000"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+        
+        <!-- 主要按钮样式 -->
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#005BAC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderThickness" Value="0"/> 
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#003E73"/>
+        </Style>
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#222"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#B0B0B0"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E0E0E0"/>
+        </Style>
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#D32F2F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#B71C1C"/>
+        </Style>
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#222"/>
+            <Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        </Style>
+        <Style Selector="TextBlock.subtitle">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#666"/>
+            <Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        </Style>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #1A000000"/>
+            <Setter Property="Margin" Value="12"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
+        <!-- 主要按钮样式 -->
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#005A9E"/>
+        </Style>
+        
+        <!-- 次要按钮样式 -->
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+        </Style>
+        
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E5E7EB"/>
+        </Style>
+        
+        <!-- 危险按钮样式 -->
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#DC2626"/>
+        </Style>
+        
+        <!-- 标题样式 -->
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#1F2937"/>
+        </Style>
+        
+        <!-- 子标题样式 -->
+        <Style Selector="TextBlock.subtitle">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+        </Style>
+        
+        <!-- 现代化ListBox样式 -->
+        <Style Selector="ListBox.modern">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="ListBox.modern ListBoxItem">
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="4,2"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+        <Style Selector="ListBox.modern ListBoxItem:selected">
+            <Setter Property="Background" Value="#E0F2FE"/>
+            <Setter Property="BorderBrush" Value="#0EA5E9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
+        <Style Selector="ListBox.modern ListBoxItem:pointerover">
+            <Setter Property="Background" Value="#F8FAFC"/>
+        </Style>
+        
+        <!-- 现代化TreeView样式 -->
+        <Style Selector="TreeView.modern">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="TreeView.modern TreeViewItem">
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2,1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        
+        <Style Selector="TreeView.modern TreeViewItem:selected">
+            <Setter Property="Background" Value="#E0F2FE"/>
+        </Style>
+        
+        <!-- 现代化DataGrid样式 -->
+        <Style Selector="DataGrid.modern">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#F3F4F6"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" MinWidth="280"/>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="320" MinWidth="280"/>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="*" MinWidth="450"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- 左侧连接列表 -->
+        <Border Grid.Column="0" Classes="card">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- 标题栏 -->
+                <Border Grid.Row="0" Background="#007ACC" 
+                        CornerRadius="8,8,0,0"
+                        Padding="20,16">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="🔗" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="数据库连接" 
+                                   Foreground="White" 
+                                   Classes="section-title"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- 连接列表 -->
+                <ScrollViewer Grid.Row="1" Margin="8">
+                    <ListBox ItemsSource="{Binding Connections}"
+                             SelectedItem="{Binding SelectedConnection}"
+                             Classes="modern">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DatabaseConnectionViewModel">
+                                <Border CornerRadius="6" Padding="4">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding Name}" 
+                                                   FontWeight="SemiBold" 
+                                                   FontSize="15"
+                                                   Foreground="#1F2937"/>
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <Border Background="#E0F2FE" 
+                                                    CornerRadius="12" 
+                                                    Padding="8,2">
+                                                <TextBlock Text="{Binding DatabaseType}" 
+                                                           FontSize="11"
+                                                           FontWeight="Medium"
+                                                           Foreground="#0369A1"/>
+                                            </Border>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Server}" 
+                                                   Classes="subtitle"
+                                                   FontSize="12"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+                
+                <!-- 操作按钮 -->
+                <Border Grid.Row="2" Background="#F8FAFC" 
+                        CornerRadius="0,0,8,8"
+                        Padding="16,12">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center" 
+                                Spacing="8">
+                        <Button Content="➕ 新增" 
+                                Command="{Binding AddConnectionCommand}"
+                                Classes="primary"/>
+                        <Button Content="✏️ 编辑" 
+                                Command="{Binding EditConnectionCommand}"
+                                Classes="secondary"/>
+                        <Button Content="🗑️ 删除" 
+                                Command="{Binding DeleteConnectionCommand}"
+                                Classes="danger"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+        
+        <!-- 分隔线 -->
+        <GridSplitter Grid.Column="1" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+        
+        <!-- 中间数据库浏览器 -->
+        <Border Grid.Column="2" Classes="card">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- 数据库浏览器标题 -->
+                <Border Grid.Row="0" Background="#10B981" 
+                        CornerRadius="8,8,0,0"
+                        Padding="20,16">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="🗂️" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="数据库对象" 
+                                   Foreground="White" 
+                                   Classes="section-title"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- 数据库对象树 -->
+                <Grid Grid.Row="1" Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- 连接状态 -->
+                    <Border Grid.Row="0" Background="#F0F9FF" 
+                            CornerRadius="6" 
+                            Padding="12,8" 
+                            Margin="0,0,0,8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="📊" FontSize="14" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding DatabaseBrowser.ConnectionStatus}" 
+                                       Classes="subtitle"
+                                       FontSize="13"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- 树形视图 -->
+                    <ScrollViewer Grid.Row="1">
+                        <TreeView ItemsSource="{Binding DatabaseBrowser.DatabaseObjectTree}"
+                                  SelectedItem="{Binding DatabaseBrowser.SelectedTreeNode}"
+                                  Classes="modern">
+                            <TreeView.ItemTemplate>
+                                <TreeDataTemplate ItemsSource="{Binding Children}">
+                                    <Border CornerRadius="4" Padding="8,4">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <CheckBox IsChecked="{Binding IsChecked}" 
+                                                      VerticalAlignment="Center"
+                                                      Margin="0"/>
+                                            <TextBlock Text="{Binding Icon}" 
+                                                       FontSize="14" 
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name}" 
+                                                       FontSize="13" 
+                                                       FontWeight="Medium"
+                                                       Foreground="#374151"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </TreeDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <!-- 分隔线 -->
+        <GridSplitter Grid.Column="3" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+        
+        <!-- 右侧详情区域 -->
+        <Border Grid.Column="4" Classes="card">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- 编辑模式内容 -->
+                <Grid Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding IsEditing}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- 编辑区域标题 -->
+                    <Border Grid.Row="0" Background="#8B5CF6" 
+                            CornerRadius="8,8,0,0"
+                            Padding="20,16">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="✏️" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="编辑数据库连接" 
+                                       Foreground="White"
+                                       Classes="section-title"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- 编辑表单 -->
+                    <ScrollViewer Grid.Row="1" Margin="16">
+                        <views:DatabaseConnectionEditView DataContext="{Binding CurrentConnection}"/>
+                    </ScrollViewer>
+                    
+                    <!-- 保存/取消按钮 -->
+                    <Border Grid.Row="2" Background="#F8FAFC" 
+                            CornerRadius="0,0,8,8"
+                            Padding="20,16">
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Right" 
+                                    Spacing="12">
+                            <Button Content="💾 保存" 
+                                    Command="{Binding SaveConnectionCommand}"
+                                    Classes="primary"/>
+                            <Button Content="❌ 取消" 
+                                    Command="{Binding CancelEditCommand}"
+                                    Classes="secondary"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                
+                <!-- 表字段详情 -->
+                <Grid Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding !IsEditing}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- 详情标题 -->
+                    <Border Grid.Row="0" Background="#F59E0B" 
+                            CornerRadius="8,8,0,0"
+                            Padding="20,16">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="📋" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding DatabaseBrowser.SelectedTableName, StringFormat='表: {0}'}" 
+                                       Foreground="White"
+                                       Classes="section-title"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- 统计信息 -->
+                    <Border Grid.Row="1" Background="#FEF3C7" 
+                            Padding="16,12">
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="📊" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding DatabaseBrowser.TableColumns.Count, StringFormat='列数: {0}'}" 
+                                           Classes="subtitle"
+                                           FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="🔑" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="主键列" 
+                                           Classes="subtitle"
+                                           FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- 字段列表 -->
+                     <ScrollViewer Grid.Row="2" Margin="16">
+                         <DataGrid ItemsSource="{Binding DatabaseBrowser.TableColumns}"
+                                   IsReadOnly="True"
+                                   Classes="modern"
+                                   AutoGenerateColumns="False">
+                             <DataGrid.Columns>
+                                 <DataGridTextColumn Header="🏷️ 字段名" Binding="{Binding Name}" Width="150"/>
+                                 <DataGridTextColumn Header="🔧 数据类型" Binding="{Binding DataType}" Width="140"/>
+                                 <DataGridTextColumn Header="❓ 可空" Binding="{Binding IsNullable}" Width="80"/>
+                                 <DataGridTextColumn Header="🔑 主键" Binding="{Binding IsPrimaryKey}" Width="70"/>
+                                 <DataGridTextColumn Header="⚙️ 默认值" Binding="{Binding DefaultValue}" Width="120"/>
+                                 <DataGridTextColumn Header="💬 注释" Binding="{Binding Comment}" Width="*"/>
+                             </DataGrid.Columns>
+                         </DataGrid>
+                     </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+
+</Window>
