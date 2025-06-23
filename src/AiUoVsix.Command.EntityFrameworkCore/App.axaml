@@ -80,10 +80,16 @@
             <Style Selector="TreeView.modern">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="#374151"/>
             </Style>
             <Style Selector="TreeView.modern TreeViewItem">
                 <Setter Property="Padding" Value="8,6"/>
                 <Setter Property="Margin" Value="2,1"/>
+                <Setter Property="Foreground" Value="#374151"/>
+            </Style>
+            <Style Selector="TreeView.modern TreeViewItem:selected">
+                <Setter Property="Background" Value="#EEF2FF"/>
+                <Setter Property="Foreground" Value="#1E40AF"/>
             </Style>
             
             <!-- 现代化DataGrid样式 -->

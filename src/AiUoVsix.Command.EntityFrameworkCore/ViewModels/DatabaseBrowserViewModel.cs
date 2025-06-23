@@ -230,14 +230,14 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             // 创建表节点
             if (Tables.Any())
             {
-                var tablesNode = new TreeNodeViewModel("📋 表", "📋", TreeNodeType.Category)
+                var tablesNode = new TreeNodeViewModel("表", "🗂️", TreeNodeType.Category)
                 {
                     IsExpanded = true
                 };
                 
                 foreach (var table in Tables)
                 {
-                    var tableNode = new TreeNodeViewModel(table, "📄");
+                    var tableNode = new TreeNodeViewModel(table, "🗂️");
                     tablesNode.AddChild(tableNode);
                 }
                 
@@ -247,11 +247,11 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             // 创建视图节点
             if (Views.Any())
             {
-                var viewsNode = new TreeNodeViewModel("👁️ 视图", "👁️", TreeNodeType.Category);
+                var viewsNode = new TreeNodeViewModel("视图", "👀", TreeNodeType.Category);
                 
                 foreach (var view in Views)
                 {
-                    var viewNode = new TreeNodeViewModel(view, "👁️");
+                    var viewNode = new TreeNodeViewModel(view, "👀");
                     viewsNode.AddChild(viewNode);
                 }
                 
@@ -261,11 +261,11 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             // 创建函数节点
             if (Functions.Any())
             {
-                var functionsNode = new TreeNodeViewModel("⚙️ 函数", "⚙️", TreeNodeType.Category);
+                var functionsNode = new TreeNodeViewModel("函数", "🔧", TreeNodeType.Category);
                 
                 foreach (var function in Functions)
                 {
-                    var functionNode = new TreeNodeViewModel(function, "⚙️");
+                    var functionNode = new TreeNodeViewModel(function, "🔧");
                     functionsNode.AddChild(functionNode);
                 }
                 
@@ -275,11 +275,11 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             // 创建存储过程节点
             if (StoredProcedures.Any())
             {
-                var proceduresNode = new TreeNodeViewModel("📦 存储过程", "📦", TreeNodeType.Category);
+                var proceduresNode = new TreeNodeViewModel("存储过程", "⚡", TreeNodeType.Category);
                 
                 foreach (var procedure in StoredProcedures)
                 {
-                    var procedureNode = new TreeNodeViewModel(procedure, "📦");
+                    var procedureNode = new TreeNodeViewModel(procedure, "⚡");
                     proceduresNode.AddChild(procedureNode);
                 }
                 
@@ -294,6 +294,90 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
                 // 选中了数据库对象，加载其详细信息
                 _ = LoadTableColumnsAsync(value.DatabaseObject);
             }
+        }
+        
+        [RelayCommand]
+        private void SelectAll()
+        {
+            foreach (var node in DatabaseObjectTree)
+            {
+                node.IsChecked = true;
+                // 确保所有子节点也被选中
+                foreach (var child in node.Children)
+                {
+                    child.IsChecked = true;
+                }
+            }
+            StatusMessage = "已全选所有表";
+        }
+        
+        [RelayCommand]
+        private void UnselectAll()
+        {
+            foreach (var node in DatabaseObjectTree)
+            {
+                node.IsChecked = false;
+                // 确保所有子节点也被取消选中
+                foreach (var child in node.Children)
+                {
+                    child.IsChecked = false;
+                }
+            }
+            StatusMessage = "已取消全选";
+        }
+        
+        [RelayCommand]
+        private void GenerateEntity()
+        {
+            // 获取所有选中的表
+            var selectedTables = GetAllSelectedTables();
+            if (selectedTables.Count == 0)
+            {
+                StatusMessage = "请至少选择一个表或视图";
+                return;
+            }
+            
+            // 显示选中的表和视图名称
+            var tableNames = string.Join(", ", selectedTables.Select(t => t.Name));
+            
+            // TODO: 实现实体生成逻辑
+            StatusMessage = $"准备生成 {selectedTables.Count} 个实体类: {tableNames}";
+            
+            // 这里应该添加实体生成的实际逻辑
+            // 例如：生成C#类文件，添加属性，生成DbContext等
+        }
+        
+        private System.Collections.Generic.List<DatabaseObject> GetAllSelectedTables()
+        {
+            var result = new System.Collections.Generic.List<DatabaseObject>();
+            
+            // 遍历所有表节点
+            var tablesNode = DatabaseObjectTree.FirstOrDefault(n => n.Name.Contains("表"));
+            if (tablesNode != null)
+            {
+                foreach (var tableNode in tablesNode.Children)
+                {
+                    if (tableNode.IsChecked && tableNode.DatabaseObject != null)
+                    {
+                        result.Add(tableNode.DatabaseObject);
+                    }
+                }
+            }
+            
+            // 遍历所有视图节点
+            var viewsNode = DatabaseObjectTree.FirstOrDefault(n => n.Name.Contains("视图"));
+            if (viewsNode != null)
+            {
+                foreach (var viewNode in viewsNode.Children)
+                {
+                    if (viewNode.IsChecked && viewNode.DatabaseObject != null)
+                    {
+                        result.Add(viewNode.DatabaseObject);
+                    }
+                }
+            }
+            
+            return result;
         }
         
         public void ClearData()

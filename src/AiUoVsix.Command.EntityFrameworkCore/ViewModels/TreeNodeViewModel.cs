@@ -76,7 +76,14 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             {
                 Parent.IsChecked = true;
             }
+            else
+            {
+                // 部分选中状态，在Avalonia中没有三态复选框，所以我们设置为false
+                // 在实际UI中，可以考虑使用特殊样式来表示部分选中状态
+                Parent.IsChecked = false;
+            }
             
+            // 递归更新父节点的状态
             Parent.UpdateParentCheckState();
         }
         

@@ -20,7 +20,10 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
         private DatabaseConnectionViewModel _currentConnection = new();
         
         [ObservableProperty]
-        private bool _isEditing = false;
+        private bool _isEditingConnection = false;
+        
+        [ObservableProperty]
+        private bool _isNewConnection = false;
         
         [ObservableProperty]
         private DatabaseBrowserViewModel _databaseBrowser = new();
@@ -47,7 +50,8 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
         private void AddConnection()
         {
             CurrentConnection = new DatabaseConnectionViewModel();
-            IsEditing = true;
+            IsNewConnection = true;
+            IsEditingConnection = true;
         }
         
         [RelayCommand]
@@ -56,7 +60,8 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             if (SelectedConnection != null)
             {
                 CurrentConnection = new DatabaseConnectionViewModel(SelectedConnection.ToModel());
-                IsEditing = true;
+                IsNewConnection = false;
+                IsEditingConnection = true;
             }
         }
         
@@ -66,7 +71,6 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
             {
                 var connection = SelectedConnection.ToModel();
                 await DatabaseBrowser.SetConnectionAsync(connection);
-                IsEditing = false; // 确保显示数据库浏览器而不是编辑面板
             }
         }
         
@@ -95,18 +99,30 @@ namespace AiUoVsix.Command.EntityFrameworkCore.ViewModels
                 else
                 {
                     // 添加新连接
-                    Connections.Add(new DatabaseConnectionViewModel(CurrentConnection.ToModel()));
+                    var newConnection = new DatabaseConnectionViewModel(CurrentConnection.ToModel());
+                    Connections.Add(newConnection);
+                    SelectedConnection = newConnection; // 自动选择新添加的连接
                 }
                 
                 SaveConnections();
-                IsEditing = false;
+                IsEditingConnection = false;
+                IsNewConnection = false;
             }
         }
         
         [RelayCommand]
         private void CancelEdit()
         {
-            IsEditing = false;
+            IsEditingConnection = false;
+            IsNewConnection = false;
+            CurrentConnection = new DatabaseConnectionViewModel();
+        }
+        
+        [RelayCommand]
+        private void CancelEditConnection()
+        {
+            IsEditingConnection = false;
+            IsNewConnection = false;
             CurrentConnection = new DatabaseConnectionViewModel();
         }
         
